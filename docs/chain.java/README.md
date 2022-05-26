@@ -1,15 +1,15 @@
-# Java SDK
+# 概览
 
-Java SDK 提供对GNC网络核心数据结构、序列化、密钥管理和API请求的封装。可用于与GNC区块链交互的Java应用程序。 
-SDK提供了私钥存储、私钥管理、以及与GNC节点交互的交易发送、数据查询等功能。
+Java SDK提供对GNC网络核心数据结构、序列化、密钥管理和API请求的封装。用于与GNC区块链交互的Java应用程序。  
+Java SDK提供了私钥存储、私钥管理、以及与GNC节点交互的交易发送、数据查询等功能。
 
 > 重要提示 
 > > - 助记词可以推出私钥，私钥不可推出助记词。助记词一定要备份！！！
 > > - 构建消息java类、数据查询java类与模块有对应关系。比如Wasm模块， 构建消息类TxWasm，数据查询类QueryWasm。其他依次推之。
 
-## 功能介绍
-### [私钥存储接口类](chain.java/KeyDAO.md)
-定义了私钥存储、读取、加密、解密的函数，为私钥管理接口类提供私钥的存储管理。
+## 类介绍
+### 私钥存储接口类
+定义了私钥存储、读取、加密、解密的函数接口，为**私钥管理接口类**提供私钥的存储管理。[实现类详情](chain.java/KeyDAO.md)
 ```java
 import com.glodnet.chain.keys.IKeyDAO;
 ```
@@ -19,8 +19,8 @@ import com.glodnet.chain.keys.IKeyDAO;
   - 加密私钥
   - 解密私钥
 
-### [私钥管理接口类](chain.java/KeyService.md) 
-定义了私钥的生成、导入、导出、签名等函数，提供账户私钥管理，为交易发送类提供交易签名。
+### 私钥管理接口类
+定义了私钥的生成、导入、导出、签名等函数接口，提供账户私钥管理，为**交易发送类**提供交易签名。[实现类详情](chain.java/KeyService.md)
 ```java
 import com.glodnet.chain.keys.IKeyService;
 ```
@@ -33,8 +33,8 @@ import com.glodnet.chain.keys.IKeyService;
   - 私钥签名 
   - 私钥签名交易
 
-### [交易发送类](chain.java/TxService.md)
-提供与GNC节点交互的交易发送功能
+### 交易发送类
+提供交易数据结构的构建、序列化、与GNC节点交互的交易发送功能。[详情](chain.java/TxService.md)
 ```java
 import com.glodnet.chain.TxService;
 ```
@@ -44,15 +44,10 @@ import com.glodnet.chain.TxService;
   - 构建+签名+广播交易
 
 ### 消息构建类
-- [Staking权益相关的消息构建类](chain.java/TxStaking.md)
-- [Wasm合约相关的消息构建类](chain.java/TxWasm.md)
+提供各种消息数据结构的构建。
 
 ### 数据查询类
-提供与GNC节点交互的数据查询功能
-  - [节点相关的查询类](chain.java/QueryNode.md)
-  - [账户相关的查询类](chain.java/QueryAuth.md)
-  - [账户金额的查询类](chain.java/QueryBank.md) 
-  - [Wasm合约相关的查询类](chain.java/QueryWasm.md)
+提供与GNC节点交互的数据查询功能。
 
 ## 演示用例
 

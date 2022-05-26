@@ -8,4 +8,4 @@
 * [Collector](chain.collector/)
 * [Finder](chain.finder/)
 * [Extension](chain.extension/)
-* [常见问题](guide.md)
+* [指南](guide.md)
