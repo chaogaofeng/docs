@@ -157,6 +157,76 @@ String hash = tx.send("alice", "123456", BuildTxOptions.builder()
 System.out.println(hash);
 ```
 
+### 冻结合约
+
+```java
+// 节点api
+HttpClient client = new HttpClient("http://127.0.0.1:1317") // 节点api访问地址
+// 发送交易服务
+TxService tx = new TxService(client, null, SignAlgo.SM2,"gnchain-45_1", CoinOuterClass.DecCoin.newBuilder().build(), new BigDecimal(1.5));
+// 私钥管理服务
+IKeyService keyService = tx.getKeyService();
+
+// 助记词
+String mnemonic = "apology false junior asset sphere puppy upset dirt miracle rice horn spell ring vast wrist crisp snake oak give cement pause swallow barely clever";
+// 导入助记词，创建账户alice
+keyService.recoverKey("alice", "123456", mnemonic, true, 0, "");
+// 账户alice地址
+String aliceAddress = keyService.showAddress("alice");
+
+// 操作行为的消息列表
+List<Any> msgs = new ArrayList<>();
+// 赋予冻结权限
+List<Role> roles = new ArrayList<>();
+roles.add(Role.BLOCK_ACCOUNT);
+// 赋予权限消息构建
+String contract_address = "gnc1vtnj27dzruagutg8ja4qmu635rn08kvsx5xurp";
+msgs.add(TxPerm.NewMsgMsgAssign(address, contract_address, roles));
+// 发送交易
+String hash = tx.send("alice", "123456", BuildTxOptions.builder()
+                      .sender(aliceAddress)
+                      .msgs(msgs)
+                      .memo("")
+                      .build());
+// 交易哈希
+System.out.println(hash);
+```
+
+### 解冻合约
+
+```java
+// 节点api
+HttpClient client = new HttpClient("http://127.0.0.1:1317") // 节点api访问地址
+// 发送交易服务
+TxService tx = new TxService(client, null, SignAlgo.SM2,"gnchain-45_1", CoinOuterClass.DecCoin.newBuilder().build(), new BigDecimal(1.5));
+// 私钥管理服务
+IKeyService keyService = tx.getKeyService();
+
+// 助记词
+String mnemonic = "apology false junior asset sphere puppy upset dirt miracle rice horn spell ring vast wrist crisp snake oak give cement pause swallow barely clever";
+// 导入助记词，创建账户alice
+keyService.recoverKey("alice", "123456", mnemonic, true, 0, "");
+// 账户alice地址
+String aliceAddress = keyService.showAddress("alice");
+
+// 操作行为的消息列表
+List<Any> msgs = new ArrayList<>();
+// 赋予冻结权限
+List<Role> roles = new ArrayList<>();
+roles.add(Role.BLOCK_ACCOUNT);
+// 取消权限消息构建
+String contract_address = "gnc1vtnj27dzruagutg8ja4qmu635rn08kvsx5xurp";
+msgs.add(TxPerm.NewMsgUnassign(address, contract_address, roles));
+// 发送交易
+String hash = tx.send("alice", "123456", BuildTxOptions.builder()
+                      .sender(aliceAddress)
+                      .msgs(msgs)
+                      .memo("")
+                      .build());
+// 交易哈希
+System.out.println(hash);
+```
+
 ### 合约升级
 
 ```java
